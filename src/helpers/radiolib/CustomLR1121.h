@@ -2,8 +2,6 @@
 
 #include <RadioLib.h>
 
-#define LR1121_IRQ_HAS_PREAMBLE                     0b0000000100  //  4     4     valid LoRa header received
-#define LR1121_IRQ_HEADER_VALID                     0b0000010000  //  4     4     valid LoRa header received
 
 class CustomLR1121 : public LR1121 {
   public:
@@ -11,7 +9,7 @@ class CustomLR1121 : public LR1121 {
 
     bool isReceiving() {
       uint16_t irq = getIrqStatus();
-      bool detected = ((irq & LR1121_IRQ_HEADER_VALID) || (irq & LR1121_IRQ_HAS_PREAMBLE));
+      bool detected = ((irq & RADIOLIB_LR11X0_IRQ_SYNC_WORD_HEADER_VALID) || (irq & RADIOLIB_LR11X0_IRQ_PREAMBLE_DETECTED));
       return detected;
     }
 };
