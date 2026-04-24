@@ -1,6 +1,12 @@
 #include <Arduino.h>   // needed for PlatformIO
 #include <Mesh.h>
 
+extern "C" {
+	#include <lua.h>
+	#include <lauxlib.h>
+	#include <lualib.h>
+}
+
 #include "MyMesh.h"
 
 #ifdef DISPLAY_CLASS
@@ -27,6 +33,8 @@ unsigned long nextSleepinSecs = 120; // next sleep in seconds. The first sleep (
 static unsigned long userBtnDownAt = 0;
 #define USER_BTN_HOLD_OFF_MILLIS 1500
 #endif
+
+lua_State *L;
 
 void setup() {
   Serial.begin(115200);
@@ -103,6 +111,12 @@ void setup() {
 #if ENABLE_ADVERT_ON_BOOT == 1
   the_mesh.sendSelfAdvertisement(16000, false);
 #endif
+
+  L = luaL_newstate();
+  if (L == NULL) {
+    Serial.printf("Lua: cannot initialize\n");
+    halt();
+  }
 }
 
 void loop() {

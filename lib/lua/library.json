@@ -1,0 +1,32 @@
+{
+  "$schema": "https://raw.githubusercontent.com/platformio/platformio-core/develop/platformio/assets/schema/library.json",
+  "name": "lua",
+  "description": "Lua is a powerful, efficient, lightweight, embeddable scripting language",
+  "keywords": "lua, scripting, embeddable",
+  "version": "5.5.0",
+  "license": "MIT",
+  "homepage": "https://www.lua.org/",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/lua/lua.git"
+  },
+  "frameworks": "*",
+  "platforms": "*",
+  "headers": [
+    "lua.h",
+    "lualib.h",
+    "lauxlib.h"
+  ],
+  "build": {
+    "flags": [
+      "-DLUA_32BITS",
+      "-Os -ffunction-sections -fdata-sections -Wl,-s,--gc-sections,-z,norelro"
+    ],
+    "srcFilter": [
+      "+<*.c>",
+      "-<lua.c>",
+      "-<luac.c>",
+      "-<onelua.c>"
+    ]
+  }
+}
