@@ -47,6 +47,7 @@ protected:
 public:
   NRF52Board(char *otaname) : ota_name(otaname) {}
   virtual void begin();
+  virtual void loop();
   virtual uint8_t getStartupReason() const override { return startup_reason; }
   virtual float getMCUTemperature() override;
   virtual void reboot() override { NVIC_SystemReset(); }

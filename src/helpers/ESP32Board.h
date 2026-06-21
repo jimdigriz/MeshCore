@@ -50,6 +50,8 @@ public:
   #endif    
   }
 
+  void loop() { }
+
   // Temperature from ESP32 MCU
   float getMCUTemperature() override {
     uint32_t raw = 0;
